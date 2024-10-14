@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-09-2024 a las 07:25:08
+-- Tiempo de generación: 14-10-2024 a las 20:28:57
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -60,6 +60,7 @@ CREATE TABLE `usuarios` (
   `id` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `mail` varchar(50) NOT NULL,
+  `contrasena` varchar(50) NOT NULL,
   `racha` int(11) NOT NULL,
   `adivinados` int(11) NOT NULL,
   `adivinadoToday` tinyint(1) NOT NULL
