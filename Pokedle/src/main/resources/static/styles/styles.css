@@ -1,0 +1,29 @@
+.title{
+    width:500px;
+}
+
+.pop {
+	background-color:#44c767;
+	border:1px solid #18ab29;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:8px;
+	padding:21px 21px;
+	text-decoration:none;
+}
+.pop:hover {
+	background-color:#5cbf2a;
+}
+.pop:active {
+	position:relative;
+	top:1px;
+}
+
+div{
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    margin-bottom: 5px;
+}
