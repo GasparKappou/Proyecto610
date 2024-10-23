@@ -20,9 +20,5 @@ public class ModeController {
 	private String showWelcome() {
 		return "holap";
 	}
-	
-	@GetMapping("/register")
-	private String showRegister() {
-		return "users/register";
-	};
+
 }
