@@ -13,14 +13,24 @@ public class MainController {
 		return "main/index";
 	}
 	
-	@GetMapping("/x")
-	private String showRegister() {
-		return "main/x";
+	@GetMapping("/classic")
+	private String showClassic() {
+		return "main/classic";
 	};
 	
-	@GetMapping("/y")
-	private String showLogin() {
-		return "main/y";
+	@GetMapping("/silhouette")
+	private String showSilhouette() {
+		return "main/silhouette";
+	}
+	
+	@GetMapping("/tcg")
+	private String showTcg() {
+		return "main/tcg";
+	}
+	
+	@GetMapping("/emoji")
+	private String showEmoji() {
+		return "main/emoji";
 	}
 	
 }
