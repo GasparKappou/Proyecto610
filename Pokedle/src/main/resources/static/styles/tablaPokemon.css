@@ -20,9 +20,5 @@ table {
     height: 50px;
     border: 2px solid #f00;
     transition: background-color 0.3s;
-    background-color: gray; /* Color de fondo inicial */
-}
-
-.pixel:hover {
-    opacity: 0.8;
+    background-color: #31adff; /* Color de fondo inicial */
 }

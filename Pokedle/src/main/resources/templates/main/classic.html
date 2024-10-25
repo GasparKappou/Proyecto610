@@ -21,17 +21,22 @@
 	</div>
 	<div class="tabla">
 		<table id="pokemon-table">
-			<tr>
-				<td class="pixel" onclick="changeColor(this)"></td>
-				<td class="pixel" onclick="changeColor(this)"></td>
-				<td class="pixel" onclick="changeColor(this)"></td>
+			<tr> <!-- encabezado fijo -->
+				<th class="pixel" >Pokemon</th>
+				<th class="pixel" >Tipo_1</th>
+				<th class="pixel" >Tipo_2</th>
+				<th class="pixel" >Evolución</th>
+				<th class="pixel" >Evolución máxima</th>
+				<th class="pixel" >Color</th>
+				<th class="pixel" >Habitat</th>
+				<th class="pixel" >Generación</th>
 			</tr>
 			<tr>
 				<td class="pixel" onclick="changeColor(this)"></td>
 				<td class="pixel" onclick="changeColor(this)"></td>
 				<td class="pixel" onclick="changeColor(this)"></td>
-			</tr>
-			<tr>
+				<td class="pixel" onclick="changeColor(this)"></td>
+				<td class="pixel" onclick="changeColor(this)"></td>
 				<td class="pixel" onclick="changeColor(this)"></td>
 				<td class="pixel" onclick="changeColor(this)"></td>
 				<td class="pixel" onclick="changeColor(this)"></td>
@@ -47,7 +52,7 @@
 			if (currentColor === 'yellow') {
 				cell.style.backgroundColor = 'green';
 			} else if (currentColor === 'green') {
-				cell.style.backgroundColor = 'gray';
+				cell.style.backgroundColor = "#31adff";
 			} else {
 				cell.style.backgroundColor = 'yellow';
 			}
