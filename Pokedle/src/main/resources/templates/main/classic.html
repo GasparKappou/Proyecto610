@@ -10,51 +10,48 @@
 	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 	crossorigin="anonymous" />
 <link rel="stylesheet" href="../styles/styles.css" />
+<link rel="stylesheet" href="../styles/tablaPokemon.css" />
 </head>
 <body>
 	<div class="title">
 		<img src="../src/img/pokedleLogo.png" alt="Pokedle" class="title" />
 	</div>
 	<div class="Inicio">
-		<a href="../main/"><button type="button"
-				class="btn btn-primary">Inicio</button></a>
+		<a href="../main/"><button type="button" class="btn btn-primary">Inicio</button></a>
 	</div>
 	<div class="tabla">
-		<table class="table table-dark table-striped">
-			<thead>
-				<tr>
-					<th scope="col">Pokemón</th>
-					<th scope="col">Tipo 1</th>
-					<th scope="col">Tipo 2</th>
-					<th scope="col">Evolución</th>
-					<th scope="col">Max Evolución</th>
-					<th scope="col">Color</th>
-					<th scope="col">Habitat</th>
-					<th scope="col">Generación</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>Pikachu</td>
-					<td>Electrico</td>
-					<td>Ninguno</td>
-					<td>1</td>
-					<td>No</td>
-					<td>Amarillo</td>
-					<td>Bosque/Ciudad</td>
-					<td>1</td>
-				</tr>
-				<!-- 
-				<tr>
-					<td>Jacob</td>
-				</tr>
-				<tr>
-					<th scope="row">3</th>
-					<td>Larry the Bird</td>
-				</tr>
-				 -->
-			</tbody>
+		<table id="pokemon-table">
+			<tr>
+				<td class="pixel" onclick="changeColor(this)"></td>
+				<td class="pixel" onclick="changeColor(this)"></td>
+				<td class="pixel" onclick="changeColor(this)"></td>
+			</tr>
+			<tr>
+				<td class="pixel" onclick="changeColor(this)"></td>
+				<td class="pixel" onclick="changeColor(this)"></td>
+				<td class="pixel" onclick="changeColor(this)"></td>
+			</tr>
+			<tr>
+				<td class="pixel" onclick="changeColor(this)"></td>
+				<td class="pixel" onclick="changeColor(this)"></td>
+				<td class="pixel" onclick="changeColor(this)"></td>
+			</tr>
 		</table>
+
+
+
 	</div>
+	<script>
+		function changeColor(cell) {
+			const currentColor = cell.style.backgroundColor;
+			if (currentColor === 'yellow') {
+				cell.style.backgroundColor = 'green';
+			} else if (currentColor === 'green') {
+				cell.style.backgroundColor = 'gray';
+			} else {
+				cell.style.backgroundColor = 'yellow';
+			}
+		}
+	</script>
 </body>
 </html>
