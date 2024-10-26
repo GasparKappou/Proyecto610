@@ -7,6 +7,6 @@ import com.pokedle.main.models.User;
 public interface UserRepository extends JpaRepository<User, Integer> {
 
 	User findByMail(String mail);
-	User findByPassword(String password);
+	User findByPasswordAndNombre(String password, String nombre);
 	User findByNombre(String nombre);
 }

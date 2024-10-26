@@ -1,3 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+.custom-font {
+    font-family: 'Press Start 2P', cursive;
+}
+
+.button:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.05);
+}
+.button:active {
+    animation: click-animation 0.2s ease;
+}
+@keyframes click-animation {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+}
+        
 .title {
 	width: 500px;
 }
@@ -10,11 +29,11 @@ table {
 
 .pop {
     background-color: #4CAF50;
-    border: none;
+    border: 2px solid black;
     display: inline-block;
     cursor: pointer;
     color: #ffffff;
-    font-family: Arial, sans-serif;
+    font-family: 'Press Start 2P', cursive;
     font-size: 16px;
     padding: 15px 30px;
     text-decoration: none;
@@ -25,11 +44,11 @@ table {
 
 .pop:hover {
     background-color: #45a049;
-    transform: translateY(-2px);
+    transform: scale(1.05);
 }
 
 .pop:active {
-    transform: translateY(1px);
+    animation: click-animation 0.2s ease;
 }
         
 .btn-primary {
@@ -93,4 +112,16 @@ body {
     .mobile-menu {
         display: none;
     }
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.menu-container {
+    margin-bottom: 10px;
 }

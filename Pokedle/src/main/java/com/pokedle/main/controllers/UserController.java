@@ -76,7 +76,7 @@ public class UserController {
 			return "user/register";
 		}
 		
-		return "redirect:/main";
+		return "redirect:/public";
 	}
 	
 	
@@ -91,15 +91,17 @@ public class UserController {
 	@PostMapping("/login")
 	private String Login(@Valid @ModelAttribute UserDto userDto, BindingResult result, Model model, HttpServletRequest request) throws NoSuchAlgorithmException {
 		if(repo.findByNombre(userDto.getNombre()) != null) {
-			if(repo.findByPassword(EncryptString(userDto.getPassword())) != null) {
+			if(repo.findByPasswordAndNombre(EncryptString(userDto.getPassword()), userDto.getNombre()) != null) {
 //				System.out.println(model.getAttribute("sessionMail"));
 				session = request.getSession();
 				session.setAttribute("username", userDto.getNombre());
+				
 				Enumeration<String> atributos = session.getAttributeNames();
 				while(atributos.hasMoreElements()) {
 					String atributo = atributos.nextElement();
 					System.out.println(atributo + ": " + request.getSession().getAttribute(atributo));
 				}
+				
 				return "public/index";
 			}
 			result.addError(new FieldError("userDto", "password", "Contraseña incorrecta."));
