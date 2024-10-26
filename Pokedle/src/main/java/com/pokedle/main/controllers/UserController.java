@@ -4,6 +4,7 @@ import java.io.Console;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Enumeration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ import com.pokedle.main.models.User;
 import com.pokedle.main.models.UserDto;
 import com.pokedle.main.services.UserRepository;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
@@ -77,6 +79,7 @@ public class UserController {
 		return "redirect:/main";
 	}
 	
+	
 	@GetMapping("/login")
 	private String showLogin(Model model) {
 		UserDto userDto = new UserDto();
@@ -86,11 +89,18 @@ public class UserController {
 	}
 	
 	@PostMapping("/login")
-	private String Login(@Valid @ModelAttribute UserDto userDto, BindingResult result, Model model) throws NoSuchAlgorithmException {
+	private String Login(@Valid @ModelAttribute UserDto userDto, BindingResult result, Model model, HttpServletRequest request) throws NoSuchAlgorithmException {
 		if(repo.findByNombre(userDto.getNombre()) != null) {
 			if(repo.findByPassword(EncryptString(userDto.getPassword())) != null) {
 //				System.out.println(model.getAttribute("sessionMail"));
-				return "main/index";
+				session = request.getSession();
+				session.setAttribute("username", userDto.getNombre());
+				Enumeration<String> atributos = session.getAttributeNames();
+				while(atributos.hasMoreElements()) {
+					String atributo = atributos.nextElement();
+					System.out.println(atributo + ": " + request.getSession().getAttribute(atributo));
+				}
+				return "public/index";
 			}
 			result.addError(new FieldError("userDto", "password", "Contraseña incorrecta."));
 			return "user/login";
@@ -100,6 +110,15 @@ public class UserController {
 			result.addError(new FieldError("userDto", "mail", "Username no registrado"));
 		}
 		return "user/login";
+	}
+	
+	@GetMapping("/logout")
+	private String logout(){
+		if(session != null) {
+			session.invalidate();
+		}
+		System.out.println("sesion destruida.");
+		return "public/index";
 	}
 	
 	private String EncryptString(String input) throws NoSuchAlgorithmException {

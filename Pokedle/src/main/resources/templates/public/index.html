@@ -19,8 +19,9 @@
 	<div class="desktop-menu mb-5">
         <a class="pop mx-2" href="">🔥 Racha</a>
         <a class="pop mx-2" href="#">📊 Estadísticas</a>
-        <a class="pop mx-2" href="/user/register">📝 Registro</a>
-        <a class="pop mx-2" href="/user/login">🔑 Iniciar Sesión</a>
+       	<a th:if="${session.isEmpty()}" class="pop mx-2" href="/user/register">📝 Registro</a>
+       	<a th:if="${session.isEmpty()}" class="pop mx-2" href="/user/login">🔑 Iniciar Sesión</a>
+        <a th:unless="${session.isEmpty()}" class="pop mx-2" href="/user/logout">ℹ️ Cerrar sesión</a>
         <a class="pop mx-2" href="#">ℹ️ Sobre Nosotros</a>
         <a class="pop mx-2" href="#">⚙️ Configuración</a>
     </div>
@@ -56,7 +57,7 @@
         </a>
     </div>
     <div class="mt-10">
-        <p class="text-white text-lg" th:text="${sessionName} ? 'waos'  : 'pene'"></p>
+        <p class="text-white text-lg" th:text="${session.isEmpty()} ? ''  : 'bienvenido de vuelta, ' + ${session.username} + ' papu!'"></p>
     </div>
 </body>
 </html>
