@@ -5,32 +5,32 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/main")
-public class MainController {
+@RequestMapping("/public")
+public class PublicController {
 	
 	@GetMapping({"", "/"})
 	private String showWelcome() {
-		return "main/index";
+		return "public/index";
 	}
 	
 	@GetMapping("/classic")
 	private String showClassic() {
-		return "main/classic";
+		return "public/classic";
 	};
 	
 	@GetMapping("/silhouette")
 	private String showSilhouette() {
-		return "main/silhouette";
+		return "public/silhouette";
 	}
 	
 	@GetMapping("/tcg")
 	private String showTcg() {
-		return "main/tcg";
+		return "public/tcg";
 	}
 	
 	@GetMapping("/emoji")
 	private String showEmoji() {
-		return "main/emoji";
+		return "public/emoji";
 	}
 	
 }

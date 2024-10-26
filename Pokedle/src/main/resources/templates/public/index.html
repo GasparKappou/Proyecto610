@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Pokedle</title>
+<link rel="stylesheet" href="../styles/styles.css" th:href="@{../styles/styles.css}"/>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous" />
+</head>
+<body>
+	<div class="title">
+		<img src="../src/img/pokedleLogo.png" alt="Pokedle" class="title" />
+	</div>
+	<div>
+	</div>
+	<div class="desktop-menu mb-5">
+        <a class="pop mx-2" href="">🔥 Racha</a>
+        <a class="pop mx-2" href="#">📊 Estadísticas</a>
+        <a class="pop mx-2" href="/user/register">📝 Registro</a>
+        <a class="pop mx-2" href="/user/login">🔑 Iniciar Sesión</a>
+        <a class="pop mx-2" href="#">ℹ️ Sobre Nosotros</a>
+        <a class="pop mx-2" href="#">⚙️ Configuración</a>
+    </div>
+    <div class="mobile-menu mb-5">
+        <select class="pop w-full" onchange="location = this.value;">
+            <option value="">🔥 Racha</option>
+            <option value="#">📊 Estadísticas</option>
+            <option value="/user/register">📝 Registro</option>
+            <option value="/user/login">🔑 Iniciar Sesión</option>
+            <option value="#">ℹ️ Sobre Nosotros</option>
+            <option value="#">⚙️ Configuración</option>
+        </select>
+    </div>
+	<!-- supongo que los butons son submits con el modo a jugar-->
+	<div class="mb-2">
+        <a href="../public/classic">
+            <button class="btn-primary" type="button">🎮 Clásico</button>
+        </a>
+    </div>
+    <div class="mb-2">
+        <a href="../public/silhouette">
+            <button class="btn-primary" type="button">🖼️ Silueta</button>
+        </a>
+    </div>
+    <div class="mb-2">
+        <a href="../public/tcg">
+            <button class="btn-primary" type="button">🃏 Tarjeta</button>
+        </a>
+    </div>
+    <div class="mb-2">
+        <a href="../public/emoji">
+            <button class="btn-primary" type="button">😊 Emoji</button>
+        </a>
+    </div>
+    <div class="mt-10">
+        <p class="text-white text-lg" th:text="${sessionName} ? 'waos'  : 'pene'"></p>
+    </div>
+</body>
+</html>

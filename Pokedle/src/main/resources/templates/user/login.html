@@ -1,0 +1,136 @@
+<html>
+<head>
+    <title>Iniciando sesion :3</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        .hover-animate:hover {
+            animation: pulse 1s;
+        }
+        .pokemon-bg {
+            background-image: url('../src/img/background.png');
+            background-size: cover;
+            background-position: center;
+        }
+        .pokemon-theme {
+            font-family: 'Press Start 2P', cursive;
+            color: black;
+            background-color: #3b4cca;
+        }
+        .pokemon-theme input, .pokemon-theme select {
+            font-family: 'Press Start 2P', cursive;
+            border: none;
+            border-bottom: 2px solid #ffcb05;
+            background-color: white;
+            color: black;
+        }
+        .pokemon-theme input::placeholder, .pokemon-theme select {
+            color: rgba(0, 0, 0, 0.5);
+        }
+        .pokemon-theme input:hover, .pokemon-theme select:hover {
+            background-color: #ffcb05;
+            color: black;
+        }
+        .shine-button {
+            position: relative;
+            overflow: hidden;
+            background-color: #ffcb05;
+            color: black;
+            border: 2px solid #ffcb05;
+            font-family: 'Press Start 2P', cursive;
+        }
+        .shine-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -75%;
+            width: 50%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: skewX(-25deg);
+        }
+        .shine-button:hover::before {
+            animation: shine 0.75s;
+        }
+        @keyframes shine {
+            0% {
+                left: -75%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+        .form-radio:checked {
+            animation: selected 0.5s;
+            border-color: #ffcb05;
+        }
+        @keyframes selected {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        .form-radio:checked + span {
+            color: #ffcb05;
+            font-weight: bold;
+        }
+        .form-radio:checked::before {
+            content: '';
+            display: inline-block;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background-color: #ffcb05;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .form-radio {
+            position: relative;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen pokemon-bg">
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-md pokemon-theme">
+        <div class="bg-yellow-500 text-black text-center py-4 rounded-t-lg">
+            <h1 class="text-2xl font-bold">INICIO SESION</h1>
+        </div>
+        <div class="p-8">
+            <form id="registrationForm" method="post" enctype="multipart/form-data" th:object="${userDto}">
+                <div class="mb-4">
+                    <label class="block text-black">Nombre de usuario</label>
+                    <input type="text" placeholder="Username" class="w-full p-2 border-b-2 border-gray-300 rounded hover-animate" id="email" th:field="${userDto.nombre}">
+                	<p class="block text-red-600" th:if="${#fields.hasErrors('nombre')}" th:errorclass="error-danger" th:errors="${userDto.nombre}"></p>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-black">Contraseña</label>
+                    <input type="password" placeholder="contraseña" class="w-full p-2 border-b-2 border-gray-300 rounded hover-animate" id="password" th:field="${userDto.password}">
+                	<p class="block text-red-600" th:if="${#fields.hasErrors('password')}" th:errorclass="error-danger" th:errors="${userDto.password}"></p>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="bg-yellow-500 text-black px-4 py-2 rounded hover-animate shine-button">REGISTRARSE</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+
+        document.getElementById('registrationForm').addEventListener('submit', (event) => {
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value
+            };
+            console.log('Datos del Formulario:', formData);
+        });
+    </script>
+</body>
+</html>
