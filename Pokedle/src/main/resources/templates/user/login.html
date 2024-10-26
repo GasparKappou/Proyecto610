@@ -106,7 +106,7 @@
             <form id="registrationForm" method="post" enctype="multipart/form-data" th:object="${userDto}">
                 <div class="mb-4">
                     <label class="block text-black">Nombre de usuario</label>
-                    <input type="text" placeholder="Username" class="w-full p-2 border-b-2 border-gray-300 rounded hover-animate" id="email" th:field="${userDto.nombre}">
+                    <input type="text" placeholder="Username" class="w-full p-2 border-b-2 border-gray-300 rounded hover-animate" id="nombre" th:field="${userDto.nombre}">
                 	<p class="block text-red-600" th:if="${#fields.hasErrors('nombre')}" th:errorclass="error-danger" th:errors="${userDto.nombre}"></p>
                 </div>
                 <div class="mb-4">

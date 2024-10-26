@@ -19,6 +19,15 @@ public class SecurityConfig{
 	@Autowired
 	private UserDetailsService userDetailsService;
 	 
+	@SuppressWarnings("deprecation")
+	@Bean
+	AuthenticationProvider authenticationProvider() {
+		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+		provider.setUserDetailsService(userDetailsService);
+		provider.setPasswordEncoder(new MessageDigestPasswordEncoder("MD5"));
+		return provider;
+	}
+	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		return http
@@ -27,6 +36,8 @@ public class SecurityConfig{
 				)
 				.formLogin(login -> login
                         .loginPage("/user/login")
+                        .usernameParameter("nombre")
+                        .passwordParameter("password")
                         .permitAll())
 				.build();
 	}
@@ -36,12 +47,4 @@ public class SecurityConfig{
 	    return (web) -> web.ignoring().requestMatchers("/styles/**", "/js/**", "/src/**");
 	}
 	
-	@SuppressWarnings("deprecation")
-	@Bean
-	AuthenticationProvider authenticationProvider() {
-		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-		provider.setUserDetailsService(userDetailsService);
-		provider.setPasswordEncoder(new MessageDigestPasswordEncoder("MD5"));
-		return provider;
-	}
 }
