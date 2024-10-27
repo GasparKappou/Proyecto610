@@ -4,6 +4,8 @@
 <meta charset="UTF-8" />
 <title>Classic</title>
 
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -13,38 +15,43 @@
 <link rel="stylesheet" href="../styles/tablaPokemon.css" />
 </head>
 <body>
-	<div class="title">
-		<img src="../src/img/pokedleLogo.png" alt="Pokedle" class="title" />
-	</div>
-	<div class="Inicio">
-		<a href="../public/"><button type="button" class="btn btn-primary">Inicio</button></a>
-	</div>
-	<div class="tabla">
-		<table id="pokemon-table">
-			<tr> <!-- encabezado fijo -->
-				<th class="pixel" >Pokemon</th>
-				<th class="pixel" >Tipo_1</th>
-				<th class="pixel" >Tipo_2</th>
-				<th class="pixel" >Evolución</th>
-				<th class="pixel" >Evolución máxima</th>
-				<th class="pixel" >Color</th>
-				<th class="pixel" >Habitat</th>
-				<th class="pixel" >Generación</th>
-			</tr>
-			<tr>
-				<td class="pixel" onclick="changeColor(this)"></td>
-				<td class="pixel" onclick="changeColor(this)"></td>
-				<td class="pixel" onclick="changeColor(this)"></td>
-				<td class="pixel" onclick="changeColor(this)"></td>
-				<td class="pixel" onclick="changeColor(this)"></td>
-				<td class="pixel" onclick="changeColor(this)"></td>
-				<td class="pixel" onclick="changeColor(this)"></td>
-				<td class="pixel" onclick="changeColor(this)"></td>
-			</tr>
-		</table>
-
-
-
+	<div class="flex-container">
+		<div class="title">
+			<img src="../src/img/pokedleLogo.png" alt="Pokedle" class="title" />
+		</div>
+		<div class="space-y-4 w-1/4">
+			<a href="../public" class="button flex items-center justify-between border-2 border-black p-2 bg-white transition-transform duration-200 ease-in-out w-full">
+		        <span class="custom-font text-black text-x1">Inicio</span>
+		        <img alt="pokeball icon" height="100" src="../src/img/pokeball.png" width="60"/>
+		    </a>
+		</div>
+		<div class="tabla ">
+			<table id="pokemon-table">
+				<tr> <!-- encabezado fijo -->
+					<th class="pixel" >Pokemon</th>
+					<th class="pixel" >Tipo_1</th>
+					<th class="pixel" >Tipo_2</th>
+					<th class="pixel" >Evolución</th>
+					<th class="pixel" >Evolución máxima</th>
+					<th class="pixel" >Color</th>
+					<th class="pixel" >Habitat</th>
+					<th class="pixel" >Generación</th>
+				</tr>
+				<tr>
+					<td class="pixel" onclick="changeColor(this)"></td>
+					<td class="pixel" onclick="changeColor(this)"></td>
+					<td class="pixel" onclick="changeColor(this)"></td>
+					<td class="pixel" onclick="changeColor(this)"></td>
+					<td class="pixel" onclick="changeColor(this)"></td>
+					<td class="pixel" onclick="changeColor(this)"></td>
+					<td class="pixel" onclick="changeColor(this)"></td>
+					<td class="pixel" onclick="changeColor(this)"></td>
+				</tr>
+			</table>
+	
+	
+	
+		</div>
 	</div>
 	<script>
 		function changeColor(cell) {
