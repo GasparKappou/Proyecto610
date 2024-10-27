@@ -5,7 +5,9 @@
 <title>Classic</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+	rel="stylesheet" />
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -20,40 +22,185 @@
 			<img src="../src/img/pokedleLogo.png" alt="Pokedle" class="title" />
 		</div>
 		<div class="space-y-4 w-1/4">
-			<a href="../public" class="button flex items-center justify-between border-2 border-black p-2 bg-white transition-transform duration-200 ease-in-out w-full">
-		        <span class="custom-font text-black text-x1">Inicio</span>
-		        <img alt="pokeball icon" height="100" src="../src/img/pokeball.png" width="60"/>
-		    </a>
+			<a href="../public"
+				class="button flex items-center justify-between border-2 border-black p-2 bg-white transition-transform duration-200 ease-in-out w-full">
+				<span class="custom-font text-black text-x1">Inicio</span> <img
+				alt="pokeball icon" height="100" src="../src/img/pokeball.png"
+				width="60" />
+			</a>
 		</div>
-		<div class="tabla ">
+		<div>
+			<a hidden id="try">1</a> <input id="pokeTry" type="text">
+			<button
+				class="button flex items-center justify-between border-2 border-black p-2 bg-white transition-transform duration-200 ease-in-out w-full"
+				onclick="intentarPokemon(document.getElementById('pokeTry'));">Intentar</button>
+		</div>
+		<div class="tabla">
 			<table id="pokemon-table">
-				<tr> <!-- encabezado fijo -->
-					<th class="pixel" >Pokemon</th>
-					<th class="pixel" >Tipo_1</th>
-					<th class="pixel" >Tipo_2</th>
-					<th class="pixel" >Evolución</th>
-					<th class="pixel" >Evolución máxima</th>
-					<th class="pixel" >Color</th>
-					<th class="pixel" >Habitat</th>
-					<th class="pixel" >Generación</th>
-				</tr>
 				<tr>
-					<td class="pixel" onclick="changeColor(this)"></td>
-					<td class="pixel" onclick="changeColor(this)"></td>
-					<td class="pixel" onclick="changeColor(this)"></td>
-					<td class="pixel" onclick="changeColor(this)"></td>
-					<td class="pixel" onclick="changeColor(this)"></td>
-					<td class="pixel" onclick="changeColor(this)"></td>
-					<td class="pixel" onclick="changeColor(this)"></td>
-					<td class="pixel" onclick="changeColor(this)"></td>
+					<!-- encabezado fijo -->
+					<th class="pixel">Pokemon</th>
+					<th class="pixel">Tipo_1</th>
+					<th class="pixel">Tipo_2</th>
+					<th class="pixel">Evolución</th>
+					<th class="pixel">Evolución máxima</th>
+					<th class="pixel">Color</th>
+					<th class="pixel">Habitat</th>
+					<th class="pixel">Generación</th>
 				</tr>
+				<tbody id="tbody">
+
+				</tbody>
 			</table>
-	
-	
-	
 		</div>
 	</div>
 	<script>
+		var randPoke = Math.floor(Math.random()* 1304 + 1);
+		var tabla = document.getElementById("tbody");
+		
+		function crearTr(n){
+			var newRow = document.createElement("tr");
+			newRow.setAttribute('id',('apiRow' + parseInt(n)));
+			tabla.prepend(newRow);
+			
+		}
+		
+		function intentarPokemon(id) {
+			var intento = document.getElementById("try");
+			crearTr(intento.innerText);
+			
+			var colNa = document.createElement('td');
+			var colT1 = document.createElement('td');
+			var colT2 = document.createElement('td');
+			var colEv = document.createElement('td');
+			var colEvolutionM = document.createElement('td');
+			var colColor = document.createElement('td');
+			var colHab = document.createElement('td');
+			var colGen = document.createElement('td');
+			
+			var apiRow = document.getElementById("apiRow" + intento.innerText);
+			fetch("https://pokeapi.co/api/v2/pokemon/" + id.value)
+			    .then(response => response.json())
+			    .then(data => {
+			    	colNa.className = "pixel";
+			    	colNa.innerText = data.forms[0].name;
+
+			    	colT1.className = "pixel";
+			    	colT1.innerText = data.types[0].type.name;
+
+			    	colT2.className = "pixel";
+			    	colT2.innerText = typeof data.types[1] === "undefined"? "None" : data.types[1].type.name;
+					///////////////////////////////////////
+			    	fetch("https://pokeapi.co/api/v2/pokemon-species/" + data.id + "/")
+				    .then(response => response.json())
+				    .then(data => {
+						var url = "https://pokeapi.co/api/v2/pokemon-species/" + data.id + "/";
+				    	colColor.className = "pixel";
+				    	colColor.innerText = data.color.name;
+	
+				    	colHab.className = "pixel";
+				    	colHab.innerText = data.habitat == null ? "None" : data.habitat.name;
+						
+				    	var gen = "";
+				    	
+				    	if(data.id >= 1 && data.id <= 151){
+				    		gen = 1
+				    	} 
+				    	else if(data.id >= 152 && data.id <= 251){
+				    		gen = 2
+				    	}
+				    	else if(data.id >= 252 && data.id <= 386){
+				    		gen = 3
+				    	}
+				    	else if(data.id >= 387 && data.id <= 493){
+				    		gen = 4
+				    	}
+				    	else if(data.id >= 494 && data.id <= 649){
+				    		gen = 5
+				    	}
+				    	else if(data.id >= 650 && data.id <= 721){
+				    		gen = 6
+				    	}
+				    	else if(data.id >= 722 && data.id <= 809){
+				    		gen = 7
+				    	}
+				    	else if(data.id >= 810 && data.id <= 897){
+				    		gen = 8
+				    	}
+				    	else if(data.id >= 898 && data.id <= 1025){
+				    		gen = 9
+				    	}
+				    	else{
+				    		gen = 10
+				    	}
+				    	
+				    	colGen.className = "pixel";
+				    	colGen.innerText = gen;
+				    	///////////////////////////////////////////
+				    	fetch(data.evolution_chain.url)
+					    .then(response => response.json())
+					    .then(data => {
+					    	var evoAct = 1;
+					    	var evos = 1;
+					    	
+					    	var foundEvo = false;
+					    	var foundMax = false;
+					    	
+					    	var nextSpecie = data.chain.evolves_to;
+					    	var chainSpecie = data.chain;
+					    	
+					    	for (var i = 0; !foundMax; i++){
+					    		console.log("for 1: "+ evos);
+					    		if(Object.keys(nextSpecie).length > 0){
+					    			evos += 1;
+					    			nextSpecie = nextSpecie[0].evolves_to;
+					    		}
+					    		else{
+					    			foundMax = !foundMax;
+					    		}
+					    	}
+					    	
+					    	/*for (var i = 0; !foundEvo; i++){
+					    		console.log("for 2: "+ evos);
+					    		if(Object.keys(nextSpecie).length > 0){
+					    			evos += 1;
+					    			
+					    			if(chainSpecie.species.url == url && !foundEvo){
+					    				foundEvo = !foundEvo;
+						    			chainSpecie = nextSpecie[0];
+						    		}
+					    			else{
+					    				evoAct += 1;
+					    				chainSpecie = nextSpecie[0];
+						    		}
+					    			nextSpecie = nextSpecie[0].evolves_to;
+					    		}
+					    	}*/
+					    	
+					    	colEv.className = "pixel";
+					    	colEv.innerText = evoAct;
+					    	
+					    	colEvolutionM.className = "pixel";
+					    	colEvolutionM.innerText = evos;
+					    	
+					    })
+				    
+				    })
+				    
+				    intento.innerText = parseInt(intento.innerText) + 1;
+			    	apiRow.appendChild(colNa);
+			    	apiRow.appendChild(colT1);
+			    	apiRow.appendChild(colT2);
+			    	apiRow.appendChild(colEv);
+			    	apiRow.appendChild(colEvolutionM);
+			    	apiRow.appendChild(colColor);
+			    	apiRow.appendChild(colHab);
+			    	apiRow.appendChild(colGen);
+			    	document.getElementById("pokeTry").value = "";
+			    })
+			    .catch(error => console.error("Error fetching data:", error));
+			}
+
 		function changeColor(cell) {
 			const currentColor = cell.style.backgroundColor;
 			if (currentColor === 'yellow') {
