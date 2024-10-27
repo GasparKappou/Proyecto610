@@ -23,49 +23,27 @@
 		<div class="title">
 			<img src="../src/img/pokedleLogo.png" alt="Pokedle" class="title" />
 		</div>
-		<div class="space-y-4 w-1/6">
+		<div class="space-y-4 w-1/7 top-left">
 			<a href="../public" class="button flex items-center justify-between border-2 border-black p-2 bg-white transition-transform duration-200 ease-in-out w-full">
 		        <span class="custom-font text-black text-x1">Inicio</span>
-		        <img alt="pokeball icon" height="100" src="../src/img/pokeball.png" width="60"/>
+		        <img alt="pokeball icon" height="40" src="../src/img/pokeball.png" width="40"/>
 		    </a>
 		</div>
-		<div class="container mx-auto py-8">
-			<table class="min-w-full bg-gray-800 text-white">
-				<thead>
-					<tr>
-						<th class="py-2 px-4 border-b border-gray-600 text-center">Pokemón</th>
-						<th class="py-2 px-4 border-b border-gray-600 text-center">Tipo 1</th>
-						<th class="py-2 px-4 border-b border-gray-600 text-center">Tipo 2</th>
-						<th class="py-2 px-4 border-b border-gray-600 text-center">Evolución</th>
-						<th class="py-2 px-4 border-b border-gray-600 text-center">Max Evolución</th>
-						<th class="py-2 px-4 border-b border-gray-600 text-center">Color</th>
-						<th class="py-2 px-4 border-b border-gray-600 text-center">Habitat</th>
-						<th class="py-2 px-4 border-b border-gray-600 text-center">Generación</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td class="py-2 px-4 border-b border-gray-600 text-center transition-color" onclick="changeColor(this)">Pikachu</td>
-						<td class="py-2 px-4 border-b border-gray-600 text-center transition-color" onclick="changeColor(this)">Electrico</td>
-						<td class="py-2 px-4 border-b border-gray-600 text-center transition-color" onclick="changeColor(this)">Ninguno</td>
-						<td class="py-2 px-4 border-b border-gray-600 text-center transition-color" onclick="changeColor(this)">1</td>
-						<td class="py-2 px-4 border-b border-gray-600 text-center transition-color" onclick="changeColor(this)">No</td>
-						<td class="py-2 px-4 border-b border-gray-600 text-center transition-color" onclick="changeColor(this)">Amarillo</td>
-						<td class="py-2 px-4 border-b border-gray-600 text-center transition-color" onclick="changeColor(this)">Bosque/Ciudad</td>
-						<td class="py-2 px-4 border-b border-gray-600 text-center transition-color" onclick="changeColor(this)">1</td>
-					</tr>
-					<!-- 
-					<tr>
-						<td>Jacob</td>
-					</tr>
-					<tr>
-						<th scope="row">3</th>
-						<td>Larry the Bird</td>
-					</tr>
-					 -->
-				</tbody>
-			</table>
-		</div>
+		<div class="flex flex-col items-center space-y-8">
+			<div class="image-box">
+				<img alt="pokemon silhouette" height="300" width="300" src="../src/img/silhouetteGame/haxorusSilhouette.png"/>
+			</div>
+			<div class="relative w-64" style="transform: translateX(-120px);">
+				<input type="text" id="pokeName" class="input-box" placeholder="Enter Pokémon name">
+				<div id="results" class="absolute top-full left-0 w-full border border-gray-400 bg-white mt-1 max-h-64 overflow-y-auto">
+	            	<!-- Pokemones filtrados -->
+	        	</div>
+			</div>
+			<div id="history">
+				<!-- historial -->
+			</div>
+		</div>	
+		
 	</div>
 	<script src="../js/silhouette.js"></script>
 </body>
