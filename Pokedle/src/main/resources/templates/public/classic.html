@@ -115,34 +115,29 @@
 					    	var evos = 1;
 					    	
 					    	var foundEvo = false;
+					    	var foundMax = false;
 					    	
 					    	var nextSpecie = data.chain.evolves_to;
 					    	
 					    	var chainSpecie = data.chain;
 					    	
-					    	console.log(url);
-					    	while (true){
-					    		
+					    	for (var i = 0; !foundEvo && !foundMax; i++){
 					    		if(Object.keys(nextSpecie).length > 0){
 					    			evos += 1;
 					    			
 					    			if(chainSpecie.species.url == url && !foundEvo){
 					    				foundEvo = !foundEvo;
-					    				console.log(chainSpecie.species.url.toString());
-					    				
-						    		}else{
-						    			console.log(nextSpecie);
 						    			chainSpecie = nextSpecie[0];
-						    			evoAct += 1;
-						    			
-					    				
+						    		}
+					    			else{
+					    				evoAct += 1;
+					    				chainSpecie = nextSpecie[0];
 						    		}
 					    			nextSpecie = nextSpecie[0].evolves_to;
-					    		}else{
-					    			break;
 					    		}
-					    		console.log(evoAct);
-					    		console.log(evos);
+					    		else{
+					    			foundMax = !foundMax;
+					    		}
 					    	}
 					    	colEv.className = "pixel";
 					    	colEv.innerText = evoAct;
@@ -167,7 +162,7 @@
 			}
 
 		
-		pokeApi(1);
+		pokeApi(974);
 		
 		function changeColor(cell) {
 			const currentColor = cell.style.backgroundColor;
