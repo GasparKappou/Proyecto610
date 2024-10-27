@@ -30,10 +30,11 @@
 			</a>
 		</div>
 		<div>
+			<a hidden id="try">1</a>
 			<input id="pokeTry" type="text">
 			<button
 				class="button flex items-center justify-between border-2 border-black p-2 bg-white transition-transform duration-200 ease-in-out w-full"
-				onclick="pokeApi();">Intentar</button>
+				onclick="pokeApi(document.getElementById('pokeTry'));">Intentar</button>
 		</div>
 		<div class="tabla">
 			<table id="pokemon-table">
@@ -48,41 +49,36 @@
 					<th class="pixel">Habitat</th>
 					<th class="pixel">Generación</th>
 				</tr>
-				<tr>
-					<td class="pixel" onclick="changeColor(this)"></td>
-					<td class="pixel" onclick="changeColor(this)"></td>
-					<td class="pixel" onclick="changeColor(this)"></td>
-					<td class="pixel" onclick="changeColor(this)"></td>
-					<td class="pixel" onclick="changeColor(this)"></td>
-					<td class="pixel" onclick="changeColor(this)"></td>
-					<td class="pixel" onclick="changeColor(this)"></td>
-					<td class="pixel" onclick="changeColor(this)"></td>
+				<tr id="apiRow1">
 				</tr>
-				<tr id="apiRow">
+				<tr id="apiRow2">
+				</tr>
+				<tr id="apiRow3">
+				</tr>
+				<tr id="apiRow4">
+				</tr>
+				<tr id="apiRow5">
+				</tr>
+				<tr id="apiRow6">
 				</tr>
 			</table>
-
-
-
 		</div>
 	</div>
 	<script>
-		let pokemonData;  // External variable
 		var randPoke = Math.floor(Math.random()* 1304 + 1);
-		const apiRow = document.getElementById("apiRow");
-		
-		
-		var colNa = document.createElement('td');
-		var colT1 = document.createElement('td');
-		var colT2 = document.createElement('td');
-		var colEv = document.createElement('td');
-		var colEvolutionM = document.createElement('td');
-		var colColor = document.createElement('td');
-		var colHab = document.createElement('td');
-		var colGen = document.createElement('td');
 		
 		function pokeApi(id) {
-			  fetch("https://pokeapi.co/api/v2/pokemon/" + id)
+			var colNa = document.createElement('td');
+			var colT1 = document.createElement('td');
+			var colT2 = document.createElement('td');
+			var colEv = document.createElement('td');
+			var colEvolutionM = document.createElement('td');
+			var colColor = document.createElement('td');
+			var colHab = document.createElement('td');
+			var colGen = document.createElement('td');
+			var intento = document.getElementById("try");
+			var apiRow = document.getElementById("apiRow" + intento.innerText);
+			fetch("https://pokeapi.co/api/v2/pokemon/" + id.value)
 			    .then(response => response.json())
 			    .then(data => {
 			    	colNa.className = "pixel";
@@ -94,10 +90,10 @@
 			    	colT2.className = "pixel";
 			    	colT2.innerText = typeof data.types[1] === "undefined"? "None" : data.types[1].type.name;
 					///////////////////////////////////////
-			    	fetch("https://pokeapi.co/api/v2/pokemon-species/" + id + "/")
+			    	fetch("https://pokeapi.co/api/v2/pokemon-species/" + data.id + "/")
 				    .then(response => response.json())
 				    .then(data => {
-						var url = "https://pokeapi.co/api/v2/pokemon-species/" + id + "/";
+						var url = "https://pokeapi.co/api/v2/pokemon-species/" + data.id + "/";
 				    	colColor.className = "pixel";
 				    	colColor.innerText = data.color.name;
 	
@@ -110,7 +106,6 @@
 				    	fetch(data.evolution_chain.url)
 					    .then(response => response.json())
 					    .then(data => {
-					    	var count = 0;
 					    	var evoAct = 1;
 					    	var evos = 1;
 					    	
@@ -118,7 +113,6 @@
 					    	var foundMax = false;
 					    	
 					    	var nextSpecie = data.chain.evolves_to;
-					    	
 					    	var chainSpecie = data.chain;
 					    	
 					    	for (var i = 0; !foundEvo && !foundMax; i++){
@@ -144,11 +138,12 @@
 					    	
 					    	colEvolutionM.className = "pixel";
 					    	colEvolutionM.innerText = evos;
-						    	
+					    	
 					    })
 				    
 				    })
 				    
+				    intento.innerText = parseInt(intento.innerText) + 1;
 			    	apiRow.appendChild(colNa);
 			    	apiRow.appendChild(colT1);
 			    	apiRow.appendChild(colT2);
@@ -157,13 +152,11 @@
 			    	apiRow.appendChild(colColor);
 			    	apiRow.appendChild(colHab);
 			    	apiRow.appendChild(colGen);
+			    	document.getElementById("pokeTry").value = "";
 			    })
 			    .catch(error => console.error("Error fetching data:", error));
 			}
 
-		
-		pokeApi(974);
-		
 		function changeColor(cell) {
 			const currentColor = cell.style.backgroundColor;
 			if (currentColor === 'yellow') {
