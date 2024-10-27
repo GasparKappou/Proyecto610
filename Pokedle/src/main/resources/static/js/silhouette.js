@@ -75,7 +75,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function tryPokemon(pokemon){
 	const todaysPokemon = await getTodaysPokemon();
 	const historyContainer = document.querySelector('#history');
+	const input = document.querySelector('#pokeName');
+	
 	historyContainer.style.display = 'block';
+	input.value = '';
 	console.log("pokemonName: " + pokemon.name + " TodayName: " + todaysPokemon.species.name);
 	
 	if(pokemon.name.toLowerCase() == todaysPokemon.species.name.toLowerCase()){
