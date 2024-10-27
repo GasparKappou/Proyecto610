@@ -150,32 +150,33 @@
 					    	var chainSpecie = data.chain;
 					    	
 					    	for (var i = 0; !foundMax; i++){
-					    		console.log("for 1: "+ evos);
 					    		if(Object.keys(nextSpecie).length > 0){
 					    			evos += 1;
+					    			
 					    			nextSpecie = nextSpecie[0].evolves_to;
 					    		}
 					    		else{
 					    			foundMax = !foundMax;
 					    		}
 					    	}
+
+					    	var nextSpecie = data.chain.evolves_to;
+					    	var chainSpecie = data.chain;
 					    	
-					    	/*for (var i = 0; !foundEvo; i++){
-					    		console.log("for 2: "+ evos);
+					    	for (var i = 0; i < 10; i++){
+					    		
 					    		if(Object.keys(nextSpecie).length > 0){
-					    			evos += 1;
-					    			
 					    			if(chainSpecie.species.url == url && !foundEvo){
 					    				foundEvo = !foundEvo;
 						    			chainSpecie = nextSpecie[0];
 						    		}
-					    			else{
+					    			else if (foundEvo == false || chainSpecie.species.url == url){
 					    				evoAct += 1;
 					    				chainSpecie = nextSpecie[0];
 						    		}
 					    			nextSpecie = nextSpecie[0].evolves_to;
 					    		}
-					    	}*/
+					    	}
 					    	
 					    	colEv.className = "pixel";
 					    	colEv.innerText = evoAct;
