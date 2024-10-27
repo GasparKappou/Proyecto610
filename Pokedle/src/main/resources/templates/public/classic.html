@@ -30,11 +30,10 @@
 			</a>
 		</div>
 		<div>
-			<a hidden id="try">1</a>
-			<input id="pokeTry" type="text">
+			<a hidden id="try">1</a> <input id="pokeTry" type="text">
 			<button
 				class="button flex items-center justify-between border-2 border-black p-2 bg-white transition-transform duration-200 ease-in-out w-full"
-				onclick="pokeApi(document.getElementById('pokeTry'));">Intentar</button>
+				onclick="intentarPokemon(document.getElementById('pokeTry'));">Intentar</button>
 		</div>
 		<div class="tabla">
 			<table id="pokemon-table">
@@ -49,25 +48,27 @@
 					<th class="pixel">Habitat</th>
 					<th class="pixel">Generación</th>
 				</tr>
-				<tr id="apiRow1">
-				</tr>
-				<tr id="apiRow2">
-				</tr>
-				<tr id="apiRow3">
-				</tr>
-				<tr id="apiRow4">
-				</tr>
-				<tr id="apiRow5">
-				</tr>
-				<tr id="apiRow6">
-				</tr>
+				<tbody id="tbody">
+
+				</tbody>
 			</table>
 		</div>
 	</div>
 	<script>
 		var randPoke = Math.floor(Math.random()* 1304 + 1);
+		var tabla = document.getElementById("tbody");
 		
-		function pokeApi(id) {
+		function crearTr(n){
+			var newRow = document.createElement("tr");
+			newRow.setAttribute('id',('apiRow' + parseInt(n)));
+			tabla.prepend(newRow);
+			
+		}
+		
+		function intentarPokemon(id) {
+			var intento = document.getElementById("try");
+			crearTr(intento.innerText);
+			
 			var colNa = document.createElement('td');
 			var colT1 = document.createElement('td');
 			var colT2 = document.createElement('td');
@@ -76,7 +77,7 @@
 			var colColor = document.createElement('td');
 			var colHab = document.createElement('td');
 			var colGen = document.createElement('td');
-			var intento = document.getElementById("try");
+			
 			var apiRow = document.getElementById("apiRow" + intento.innerText);
 			fetch("https://pokeapi.co/api/v2/pokemon/" + id.value)
 			    .then(response => response.json())
@@ -99,9 +100,42 @@
 	
 				    	colHab.className = "pixel";
 				    	colHab.innerText = data.habitat == null ? "None" : data.habitat.name;
-	
+						
+				    	var gen = "";
+				    	
+				    	if(data.id >= 1 && data.id <= 151){
+				    		gen = 1
+				    	} 
+				    	else if(data.id >= 152 && data.id <= 251){
+				    		gen = 2
+				    	}
+				    	else if(data.id >= 252 && data.id <= 386){
+				    		gen = 3
+				    	}
+				    	else if(data.id >= 387 && data.id <= 493){
+				    		gen = 4
+				    	}
+				    	else if(data.id >= 494 && data.id <= 649){
+				    		gen = 5
+				    	}
+				    	else if(data.id >= 650 && data.id <= 721){
+				    		gen = 6
+				    	}
+				    	else if(data.id >= 722 && data.id <= 809){
+				    		gen = 7
+				    	}
+				    	else if(data.id >= 810 && data.id <= 897){
+				    		gen = 8
+				    	}
+				    	else if(data.id >= 898 && data.id <= 1025){
+				    		gen = 9
+				    	}
+				    	else{
+				    		gen = 10
+				    	}
+				    	
 				    	colGen.className = "pixel";
-				    	colGen.innerText = "x";
+				    	colGen.innerText = gen;
 				    	///////////////////////////////////////////
 				    	fetch(data.evolution_chain.url)
 					    .then(response => response.json())
@@ -115,7 +149,19 @@
 					    	var nextSpecie = data.chain.evolves_to;
 					    	var chainSpecie = data.chain;
 					    	
-					    	for (var i = 0; !foundEvo && !foundMax; i++){
+					    	for (var i = 0; !foundMax; i++){
+					    		console.log("for 1: "+ evos);
+					    		if(Object.keys(nextSpecie).length > 0){
+					    			evos += 1;
+					    			nextSpecie = nextSpecie[0].evolves_to;
+					    		}
+					    		else{
+					    			foundMax = !foundMax;
+					    		}
+					    	}
+					    	
+					    	/*for (var i = 0; !foundEvo; i++){
+					    		console.log("for 2: "+ evos);
 					    		if(Object.keys(nextSpecie).length > 0){
 					    			evos += 1;
 					    			
@@ -129,10 +175,8 @@
 						    		}
 					    			nextSpecie = nextSpecie[0].evolves_to;
 					    		}
-					    		else{
-					    			foundMax = !foundMax;
-					    		}
-					    	}
+					    	}*/
+					    	
 					    	colEv.className = "pixel";
 					    	colEv.innerText = evoAct;
 					    	
