@@ -4,6 +4,13 @@
 <meta charset="UTF-8" />
 <title>Emoji</title>
 
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+<style>
+	.transition-color {
+	        transition: background-color 0.5s ease;
+	    }
+</style>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -12,49 +19,35 @@
 <link rel="stylesheet" href="../styles/styles.css" />
 </head>
 <body>
-	<div class="title">
-		<img src="../src/img/pokedleLogo.png" alt="Pokedle" class="title" />
+	<div>
+		<div class="title">
+			<img src="../src/img/pokedleLogo.png" alt="Pokedle" class="title" />
+		</div>
+		<div class="space-y-4 w-1/7 top-left">
+			<a href="../public" class="button flex items-center justify-between border-2 border-black p-2 bg-white transition-transform duration-200 ease-in-out w-full">
+		        <span class="custom-font text-black text-x1">Inicio</span>
+		        <img alt="pokeball icon" height="40" src="../src/img/pokeball.png" width="40"/>
+		    </a>
+		</div>
+		<div class="flex flex-col items-center">
+			<div class="w-80 h-24 bg-white border-2 border-gray-950 rounded-md shadow-2xl flex justify-center items-center mb-4">
+				<div id="emojiBox" class="flex justify-evenly items-center text-center w-72 h-16 bg-white border-2 border-gray-950 rounded-md shadow-2xl">
+					<!-- EmojiString -->
+				</div>
+			</div>
+			<div class="relative w-64" style="transform: translateX(-120px);">
+				<input type="text" id="pokeName" class="input-box" placeholder="Enter Pokémon name">
+				<div id="results" class="absolute top-full left-0 w-full border border-gray-400 bg-white mt-1 max-h-64 overflow-y-auto">
+	            	<!-- Pokemones filtrados -->
+	        	</div>
+			</div>
+			<div class="w-96 bg-white border-2 border-gray-950 rounded shadow-lg p-2 max-h-64 overflow-y-auto" id="history">
+				<!-- historial -->
+			</div>
+		</div>	
+		
 	</div>
-	<div class="Inicio">
-		<a href="../public/"><button type="button"
-				class="btn btn-primary">Inicio</button></a>
-	</div>
-	<div class="tabla">
-		<table class="table table-dark table-striped">
-			<thead>
-				<tr>
-					<th scope="col">Pokemón</th>
-					<th scope="col">Tipo 1</th>
-					<th scope="col">Tipo 2</th>
-					<th scope="col">Evolución</th>
-					<th scope="col">Max Evolución</th>
-					<th scope="col">Color</th>
-					<th scope="col">Habitat</th>
-					<th scope="col">Generación</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>Pikachu</td>
-					<td>Electrico</td>
-					<td>Ninguno</td>
-					<td>1</td>
-					<td>No</td>
-					<td>Amarillo</td>
-					<td>Bosque/Ciudad</td>
-					<td>1</td>
-				</tr>
-				<!-- 
-				<tr>
-					<td>Jacob</td>
-				</tr>
-				<tr>
-					<th scope="row">3</th>
-					<td>Larry the Bird</td>
-				</tr>
-				 -->
-			</tbody>
-		</table>
-	</div>
+	<script src="../js/emoji.js"></script>
 </body>
 </html>
+

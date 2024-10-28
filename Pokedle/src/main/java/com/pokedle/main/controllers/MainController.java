@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pokedle.main.services.UserRepository;
 
 @Controller
-@RequestMapping("/module")
-public class ModeController {
+@RequestMapping("/")
+public class MainController {
 	
 	@Autowired
 	private UserRepository users;
 	
 	@GetMapping({"", "/"})
 	private String showWelcome() {
-		return "holap";
+		return "public/index";
 	}
 
 }
