@@ -24,8 +24,8 @@ public class PublicController {
 	}
 	
 	@GetMapping("/tcg")
-	private String showTcg() {
-		return "public/tcg";
+	private String showDescription() {
+		return "public/description";
 	}
 	
 	@GetMapping("/emoji")

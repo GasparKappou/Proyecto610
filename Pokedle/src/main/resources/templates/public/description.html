@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Descripción</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+	rel="stylesheet" />
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous" />
+<link rel="stylesheet" href="../styles/styles.css" />
+<link rel="stylesheet" href="../styles/tablaPokemon.css" />
+</head>
+<body>
+	<div class="flex-container">
+		<div class="title">
+			<img src="../src/img/pokedleLogo.png" alt="Pokedle" class="title" />
+		</div>
+		<div class="space-y-4 w-1/4">
+			<a href="../public"
+				class="button flex items-center justify-between border-2 border-black p-2 bg-white transition-transform duration-200 ease-in-out w-full">
+				<span class="custom-font text-black text-x1">Inicio</span> <img
+				alt="pokeball icon" height="100" src="../src/img/pokeball.png"
+				width="60" />
+			</a>
+		</div>
+		<div
+			class="container flex items-center justify-between border-2 border-black p-2 bg-white transition-transform duration-200 ease-in-out w-full">
+			<div id="descripcion"></div>
+		</div>
+		<div>
+			<a hidden id="try">1</a> <input id="pokeTry" type="text">
+			<button
+				class="button flex items-center justify-between border-2 border-black p-2 bg-white transition-transform duration-200 ease-in-out w-full"
+				onclick="comprobarPokemon(document.getElementById('pokeTry').value);">Intentar</button>
+		</div>
+	</div>
+	<script>
+
+		generarFrase(pokemonAleatorio());
+		
+		function pokemonAleatorio(){
+			return Math.floor(Math.random()* 1027 + 1);
+		} 
+		
+		function generarFrase(pokemon) {
+			var frase = document.getElementById("descripcion");
+			fetch("https://pokeapi.co/api/v2/pokemon-species/" + pokemon)
+			    .then(response => response.json())
+			    .then(data => {
+			    	const frasesEsp = []
+			    	for (var i = 0; i < data.flavor_text_entries.length; i++){
+			    		if(data.flavor_text_entries[i].language.name == "es"){
+			    			frasesEsp.push(data.flavor_text_entries[i].flavor_text);
+			    		}
+			    	}
+			    	var rng = Math.floor(Math.random() * frasesEsp.length);
+			    	descripcion = frasesEsp[rng];
+			    	
+			    	frase.innerText = descripcion;
+			    	
+			    })
+			    .catch(error => console.error("Error fetching data:", error));
+			}
+		function comprobarPokemon(pokemon){
+			var descripcion = document.getElementById("descripcion").innerText;
+			fetch("https://pokeapi.co/api/v2/pokemon-species/" + pokemon)
+		    .then(response => response.json())
+		    .then(data => {
+		    	const frasesEsp = []
+		    	for (var i = 0; i < data.flavor_text_entries.length; i++){
+		    		if(data.flavor_text_entries[i].language.name == "es"){
+		    			frasesEsp.push(data.flavor_text_entries[i].flavor_text);
+		    		}
+		    	}
+		    	if(frasesEsp.includes(descripcion)){
+		     		alert("muy bien")
+		    	}
+		    })
+		    .catch(error => console.error("Error fetching data:", error));
+		}
+	</script>
+</body>
+</html>
