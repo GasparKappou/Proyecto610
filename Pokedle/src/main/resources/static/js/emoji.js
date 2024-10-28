@@ -1,7 +1,104 @@
+const emojiCombinations = [
+	{
+		"name" : "pikachu",
+		"emojis" : [
+			" ⚡️ ", 
+			" 🎶 ",
+			" 🌟 ",
+			" 🐭 "			
+		]
+	},
+	
+	{
+		"name" : "mew",
+		"emojis" : [
+			" 🐾 ", 
+			" ✨ ",
+			" 👶 ",	
+			" 🌌 "	
+		]
+	},
+	{
+		"name" : "corviknight",
+		"emojis" : [
+			" 🦅 ", 
+			" ⚔️ ",
+			" 🛡 ",	
+			" 🗻 "	
+		]
+	},
+	{
+		"name" : "greninja",
+		"emojis" : [
+			" 🐱‍👤 ", 
+			" ⚔️ ",
+			" 💧 ",	
+			" 🐸 "	
+		]
+	},
+	{
+		"name" : "lycanroc-midday",
+		"emojis" : [
+			" ⚡️ ", 
+			" 🏞 ",
+			" 🌕 ",	
+			" 🐺 "	
+		]
+	},
+	{
+		"name" : "cinderace",
+		"emojis" : [
+			" ⚽️ ", 
+			" 🏆 ",
+			" 🔥 ",	
+			" 🐰 "	
+		]
+	},
+	{
+		"name" : "tinkaton",
+		"emojis" : [
+			" 🦅 ", 
+			" 🔨 ",
+			" ✨ ",	
+			" 💖 "	
+		]
+	},
+	{
+		"name" : "gardevoir",
+		"emojis" : [
+			" 👗 ", 
+			" 🔮 ",
+			" ✨ ",	
+			" 💖 "	
+		]
+	},
+	{
+		"name" : "incineroar",
+		"emojis" : [
+			" 🎭 ", 
+			" 🔥 ",
+			" 💪 ",	
+			" 🐱 "	
+		]
+	},
+	{
+		"name" : "lucario",
+		"emojis" : [
+			" ⚔️ ", 
+			" 🥋 ",
+			" 🐺 ",	
+			" 🔵 "	
+		]
+	}
+];
+
 const usedPokemon = [];
 
 async function getTodaysPokemon(){
-	const response = await fetch('https://pokeapi.co/api/v2/pokemon/haxorus');
+	const posiblePokemons = [25, 151, 823, 658, 745, 815, 959, 382, 727, 448];
+	const selectedPoke = Math.floor(Math.random()*posiblePokemons.length);
+	
+	const response = await fetch('https://pokeapi.co/api/v2/pokemon/' + selectedPoke);
 	const data = await response.json();
 	
 	return data;
@@ -20,7 +117,7 @@ function filterPokemon(pokemonList, query){
 	return excludedList
 }
 
-function createPokemonElement(pokemon, mode){
+function createPokemonElement(pokemon, todaysPokemon, mode){
 	const div = document.createElement('div');
 	switch(mode){
 		case "win":
@@ -31,7 +128,7 @@ function createPokemonElement(pokemon, mode){
 			break;
 		case "option":
 			div.className = 'flex items-center p-2 hover:bg-gray-100';
-			div.onclick = async () => tryPokemon(pokemon);
+			div.onclick = async () => tryPokemon(pokemon, todaysPokemon);
 			break;
 		default:
 			
@@ -57,6 +154,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 	const resultsContainer = document.querySelector('#results');
 	const historyContainer = document.querySelector('#history');
 	
+	const todaysPokemon = await getTodaysPokemon();
+	console.log(todaysPokemon);
+	const todaysEmojis = emojiCombinations.filter(pokemon => pokemon.name == todaysPokemon.name)[0].emojis;
+	
+	const emojiBox = document.querySelector("#emojiBox");
+		todaysEmojis.forEach(emoji => {
+			const emojiSpan = document.createElement('span');
+			emojiSpan.className = 'custom-font text-black text-4xl mx-2';
+			emojiSpan.innerText = emoji;
+			emojiBox.append(emojiSpan);
+		});
+	
 	input.addEventListener('input', () => {
 		const query = input.value;
 		const filteredPokemon = filterPokemon(pokemonList, query);
@@ -65,7 +174,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 		if(query){
 			resultsContainer.style.display = 'block';
 			filteredPokemon.forEach(pokemon => {
-						const pokemonElement = createPokemonElement(pokemon, "option");
+						const pokemonElement = createPokemonElement(pokemon, todaysPokemon, "option");
 						resultsContainer.appendChild(pokemonElement);
 					});
 		} else {
@@ -77,15 +186,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 	historyContainer.style.display = 'none';
 });
 
-async function tryPokemon(pokemon){
-	const todaysPokemon = await getTodaysPokemon();
+async function tryPokemon(pokemon, todaysPokemon){
 	const historyContainer = document.querySelector('#history');
 	const resultsContainer = document.querySelector('#results');
 	const input = document.querySelector('#pokeName');
 	
 	historyContainer.style.display = 'block';
 	resultsContainer.style.display = 'none'
-//	console.log("pokemonName: " + pokemon.name + " TodayName: " + todaysPokemon.species.name);
+	console.log("pokemonName: " + pokemon.name + " TodayName: " + todaysPokemon.species.name);
 	
 	if(pokemon.name.toLowerCase() == todaysPokemon.species.name.toLowerCase()){
 		const pokemonElement = createPokemonElement(pokemon, "win");
@@ -105,16 +213,3 @@ async function tryPokemon(pokemon){
 		historyContainer.prepend(pokemonElement);
 	}
 }
-
-
-//function changeColor(cell) {
-//			const currentColor = cell.style.backgroundColor;
-//			console.log(currentColor);
-//			if (currentColor === 'yellow') {
-//				cell.style.backgroundColor = 'green';
-//			} else if (currentColor === 'green') {
-//				cell.style.backgroundColor = "#31adff";
-//			} else {
-//				cell.style.backgroundColor = 'yellow';
-//			}
-//		}
