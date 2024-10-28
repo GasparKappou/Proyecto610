@@ -37,7 +37,7 @@ const emojiCombinations = [
 		]
 	},
 	{
-		"name" : "lycanroc-midday",
+		"name" : "lycanroc",
 		"emojis" : [
 			" ⚡️ ", 
 			" 🏞 ",
@@ -95,8 +95,8 @@ const emojiCombinations = [
 const usedPokemon = [];
 
 async function getTodaysPokemon(){
-	const posiblePokemons = [25, 151, 823, 658, 745, 815, 959, 382, 727, 448];
-	const selectedPoke = Math.floor(Math.random()*posiblePokemons.length);
+	const posiblePokemons = [25, 151, 823, 658, 745, 815, 959, 282, 727, 448];
+	const selectedPoke = posiblePokemons[Math.floor(Math.random()*posiblePokemons.length)];
 	
 	const response = await fetch('https://pokeapi.co/api/v2/pokemon/' + selectedPoke);
 	const data = await response.json();
@@ -122,13 +122,16 @@ function createPokemonElement(pokemon, todaysPokemon, mode){
 	switch(mode){
 		case "win":
 			div.className = 'w-auto flex items-center p-2 border-2 border-lime-700 bg-lime-300';
+			console.log("ganaste");
 			break;
 		case "fail":
 			div.className = 'w-auto flex items-center p-2 border-2 border-rose-500 bg-rose-300';
+			console.log("fallo");
 			break;
 		case "option":
 			div.className = 'flex items-center p-2 hover:bg-gray-100';
 			div.onclick = async () => tryPokemon(pokemon, todaysPokemon);
+			console.log("opcion");
 			break;
 		default:
 			
@@ -196,20 +199,16 @@ async function tryPokemon(pokemon, todaysPokemon){
 	console.log("pokemonName: " + pokemon.name + " TodayName: " + todaysPokemon.species.name);
 	
 	if(pokemon.name.toLowerCase() == todaysPokemon.species.name.toLowerCase()){
-		const pokemonElement = createPokemonElement(pokemon, "win");
+		const pokemonElement = createPokemonElement(pokemon, todaysPokemon, "win");
 		input.value = todaysPokemon.species.name;
 		input.readOnly = true;
 		historyContainer.prepend(pokemonElement);
-		
-		const img = document.querySelector("#pokeSilhouette");
-		img.src = "../src/img/silhouetteGame/" + todaysPokemon.species.name.toLowerCase() + ".png";
-		console.log(img.src);
 	}
 	else{
 		input.value = '';
 		usedPokemon.push(pokemon);
 //		console.log(usedPokemon);
-		const pokemonElement = createPokemonElement(pokemon, "fail");
+		const pokemonElement = createPokemonElement(pokemon, todaysPokemon, "fail");
 		historyContainer.prepend(pokemonElement);
 	}
 }
