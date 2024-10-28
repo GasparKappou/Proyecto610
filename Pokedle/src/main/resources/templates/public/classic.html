@@ -109,38 +109,35 @@
 			    	
 			    	
 			    	colNa.id = "name";
-			    	colNa.className = "pixel";
 			    	colNa.innerText = data.forms[0].name;
 
 			    	colT1.id = "type1";
-			    	colT1.className = "pixel";
 			    	colT1.innerText = data.types[0].type.name;
 
 			    	colT2.id = "type2";
-			    	colT2.className = "pixel";
 			    	colT2.innerText = typeof data.types[1] === "undefined"? "None" : data.types[1].type.name;
 			    	
 			    	if(todayPoke.name == data.name){
-		    			colNa.style.backgroundColor = "green"	
+		    			colNa.className = "pixel bg-[#00ff00]"	
 			    	}
 			    	else{
-			    		colNa.style.backgroundColor = "red"
+			    		colNa.className = "pixel bg-[#ff0000]"
 			    	}
 			    	if(todayPoke.types[0].type.name == data.types[0].type.name){
-		    			colT1.style.backgroundColor = "green"	
+		    			colT1.className = "pixel bg-[#00ff00]"
 			    	}
 			    	else{
-			    		colT1.style.backgroundColor = "red"
+			    		colT1.className = "pixel bg-[#ff0000]"
 			    	}
-			    	if(typeof todayPoke.types[1] !== "undefined")
+			    	if(typeof todayPoke.types[1] !== "undefined" && typeof data.types[1] !== "undefined")
 			    		if(todayPoke.types[1].type.name == data.types[1].type.name){
-		    				colT2.style.backgroundColor = "green"	
+		    				colT2.className = "pixel bg-[#00ff00]"
 			    		}
 			    		else{
-			    			colT2.style.backgroundColor = "red"
+			    			colT2.className = "pixel bg-[#ff0000]"
 			    		}
 			    	else{
-			    		colT2.style.backgroundColor = "grey"
+			    		colT2.className = "pixel bg-[#aaaaaa]"
 			    	}
 					///////////////////////////////////////
 			    	fetch("https://pokeapi.co/api/v2/pokemon-species/" + data.id + "/")
@@ -148,12 +145,10 @@
 				    .then(data => {
 						var url = "https://pokeapi.co/api/v2/pokemon-species/" + data.id + "/";
 						colColor.id = "color";
-						colColor.className = "pixel";
 				    	colColor.innerText = data.color.name;
 				    	
 				    	
 				    	colHab.id = "habitat";
-				    	colHab.className = "pixel";
 				    	colHab.innerText = data.habitat == null ? "None" : data.habitat.name;
 						
 				    	var gen = "";
@@ -189,7 +184,6 @@
 				    		gen = 10
 				    	}
 				    	colGen.id = "generation";
-				    	colGen.className = "pixel";
 				    	colGen.innerText = gen;
 				    	
 						var Tgen = "";
@@ -225,34 +219,26 @@
 				    		Tgen = 10
 				    	}
 				    	if(Tgen == gen){
-			    			colGen.style.backgroundColor = "green"	
+			    			colGen.className = "pixel bg-[#00ff00]"
 				    	}
 				    	else{
-				    		colGen.style.backgroundColor = "red"
+				    		colGen.className = "pixel bg-[#ff0000]"
 				    	}
 				    	
-				    	//fallo en color
 				    	if(todayPokeSpecie.color.name == data.color.name){
-			    			colColor.style.backgroundColor = "green"	
+				    		colColor.className = "pixel bg-[#00ff00]"	
 				    	}
 				    	else{
-				    		colColor.style.backgroundColor = "red"
+				    		colColor.className = "pixel bg-[#ff0000]"
 				    	}
 				    	if(todayPokeSpecie.habitat !== null)
 					    	if(todayPokeSpecie.habitat.name == data.habitat.name){
-				    			colHab.style.backgroundColor = "green"	
+				    			colHab.className = "pixel bg-[#00ff00]"
 					    	}
 					    	else{
-					    		colHab.style.backgroundColor = "red"
+					    		colHab.className = "pixel bg-[#ff0000]"
 					    	}
-						///////////////////////////////////////////
-				    	/*if(todayPoke.gen.name == data.color.name){
-			    			colColor.style.backgroundColor = "green"	
-				    	}
-				    	else{
-				    		colColor.style.backgroundColor = "red"
-				    	}*/
-				    	///////////////////////////////////////////
+						
 				    	fetch(data.evolution_chain.url)
 					    .then(response => response.json())
 					    .then(data => {
@@ -295,17 +281,15 @@
 					    	}
 					    	
 					    	colEv.id = "evolution";
-					    	colEv.className = "pixel";
 					    	colEv.innerText = evoAct;
 					    	
 					    	colEvolutionM.id = "evolutionMax";
-					    	colEvolutionM.className = "pixel";
 					    	colEvolutionM.innerText = evos;
 					    	
+					    	//TODAYPOKEMON EVOLUTION CHAIN
 					    	var TevoAct = 1;
 					    	var Tevos = 1;
 					    	
-
 					    	var TfoundEvo = false;
 					    	var TfoundMax = false;
 					    	
@@ -329,32 +313,29 @@
 					    	for (var i = 0; i < 10; i++){
 					    		
 					    		if(Object.keys(nextSpecie).length > 0){
-					    			if(chainSpecie.species.url == url && !TfoundEvo){
+					    			if(chainSpecie.species.url == todayPokeSpecie.evolution_chain.url && !TfoundEvo){
 					    				TfoundEvo = !TfoundEvo;
 						    			chainSpecie = nextSpecie[0];
 						    		}
-					    			else if (TfoundEvo == false || chainSpecie.species.url == url){
+					    			else if (TfoundEvo !== false || chainSpecie.species.url == todayPokeSpecie.evolution_chain.url){
 					    				TevoAct += 1;
 					    				chainSpecie = nextSpecie[0];
 						    		}
 					    			nextSpecie = nextSpecie[0].evolves_to;
 					    		}
 					    	}
-					    	console.log(Tevos)
-					    	console.log(evos)
-					    	console.log(TevoAct)
-					    	console.log(evoAct)
+					    	//todayPokeSpecie.evolution_chain.url
 					    	if(TevoAct == evoAct){
-				    			colColor.style.backgroundColor = "green"	
+				    			colEv.className = "pixel bg-[#00ff00]"	
 					    	}
 					    	else{
-					    		colColor.style.backgroundColor = "red"
+					    		colEv.className = "pixel bg-[#ff0000]"
 					    	}
 					    	if(Tevos == evos){
-				    			colColor.style.backgroundColor = "green"	
+					    		colEvolutionM.className = "pixel bg-[#00ff00]"
 					    	}
 					    	else{
-					    		colColor.style.backgroundColor = "red"
+					    		colEvolutionM.className = "pixel bg-[#ff0000]"
 					    	}
 					    })
 				    
